@@ -115,21 +115,21 @@ spec:
     spec:
       serviceAccountName: haproxy-ingress-service-account
       containers:
-      # - name: haproxy-ingress
-      #   image: haproxytech/kubernetes-ingress
-      #   args:
-      #     - --http-bind-port=8080
-      #   securityContext:
-      #     runAsUser:  1000
-      #     runAsGroup: 1000
-      #     capabilities:
-      #       drop:
-      #         - ALL
-      #       add:
-      #         - NET_BIND_SERVICE
-      #   ports:
-      #   - name: http
-      #     containerPort: 8080
+      - name: haproxy-ingress
+        image: haproxytech/kubernetes-ingress
+        args:
+          - --http-bind-port=8080
+        securityContext:
+          runAsUser:  1000
+          runAsGroup: 1000
+          capabilities:
+            drop:
+              - ALL
+            add:
+              - NET_BIND_SERVICE
+        ports:
+        - name: http
+          containerPort: 8080
       - image: nginx-ingress:2.0.2
         imagePullPolicy: IfNotPresent
         name: nginx-ingress
