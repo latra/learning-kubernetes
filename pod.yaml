@@ -132,12 +132,11 @@ spec:
         ports:
         - name: http
           containerPort: 8080
-      - image: nginx:latest
-        name: nginx-ingress
-        ports:
-        - name: http
-          containerPort: 80
-       
+      - name: nginx-ingress
+        image: zgal/nginx_5000:1.1
+
+
+
       initContainers:
         - name: sysctl
           image: busybox:musl
@@ -166,6 +165,7 @@ spec:
     protocol: TCP
     targetPort: 8080
 
+---
 apiVersion: v1
 kind: Service
 metadata:
@@ -176,9 +176,9 @@ metadata:
 spec:
   selector:
     run: haproxy-ingress
-  type: LoadBalancer
+  type: NodePort
   ports:
   - name: http
-    port: 80
+    port: 5000
     protocol: TCP
-    targetPort: 80
+    targetPort: 5000
